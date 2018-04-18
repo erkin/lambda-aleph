@@ -1,0 +1,5 @@
+* λℵ
+
+λℵ is an initial attempt at writing a simple Discord bot using only Scheme (probably with minimal C FFI in the future for OAuth 2.0).
+
+As of now, it does nothing but send JSON =POST=s to webhooks.
