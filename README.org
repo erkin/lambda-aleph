@@ -5,11 +5,11 @@
   It's obviously a work-in-progress. As of now, it does nothing but =POST= JSON with =content= text to webhooks and probably even fails at that.
 
 ** Required eggs
-- =http-client=
-- =intarweb=
-- =medea=
-- =openssl=
-- =system=
-- =uri-common=
+- =http-client= (for HTTP requests)
+- =intarweb= (for =http-client= to work)
+- =medea= (to interpret JSON files)
+- =openssl= (to use HTTPS)
+- =system= (to build the project)
+- =uri-common= (to evaluate URIs)
 
 *PS:* We could've used =\lambda\aleph= in this file if it weren't for the fact that GitHub's markup engine doesn't render some org-mode special symbols.
