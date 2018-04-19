@@ -1,4 +1,5 @@
 (use intarweb uri-common http-client medea)
+(import webhook-secrets)
 
 ;; webhook-id and webhook-token are defined in secret.scm
 (define uri
@@ -7,7 +8,8 @@
                   webhook-id "/" webhook-token)))
 
 (let ((url "https://github.com/erkin/lambda-aleph") (version "0.0.2"))
- (client-software '(((append-string "Discord-Bot (" url ", " version ")")))))
+  (client-software
+   '(((append-string "Discord-Bot (" url ", " version ")"))) version #f))
 
 (with-input-from-request
  (make-request method: 'POST
