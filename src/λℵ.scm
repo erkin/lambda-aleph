@@ -1,5 +1,4 @@
 (use intarweb uri-common http-client medea)
-(import secrets)
 
 ;; webhook-id and webhook-token are defined in secret.scm
 (define uri

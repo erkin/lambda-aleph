@@ -1,6 +1,5 @@
 ;; -*- coding: utf-8; mode: scheme -*-
 (define-system λℵ
-  (file "λℵ")
-  (scheme-file "secret")
-  (compiled-scheme-file "λℵ" depends: '("secret")))
+  (file "secret")
+  (compiled-scheme-file "λℵ" includes: '("secret")))
 
