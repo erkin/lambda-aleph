@@ -10,7 +10,8 @@
 ;; Discord doesn't recognise the version string and wants it to be incorporated
 ;; in the system information section, so we're leaving the version string blank
 ;; and appending it to our project URL
-(client-software (list (list "DiscordBot" #f (string-append project-url ", " project-version))))
+(client-software
+ (list (list "DiscordBot" #f (string-append project-url ", " project-version))))
 
 (define payload (json->string '((content . "one two three"))))
 
@@ -22,3 +23,4 @@
                headers: (headers '((content-type application/json))))
  payload
  print)
+
