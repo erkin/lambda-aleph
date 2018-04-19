@@ -1,6 +1,6 @@
 * λℵ v0.0.2
   
-  λℵ is a half-arsed attempt at writing a simple Discord bot using only Scheme (probably with minimal C FFI in the future for OAuth 2.0) by someone who isn't good at Scheme.
+  λℵ is a half-arsed attempt at writing a simple Discord bot using only CHICKEN Scheme (probably with minimal C FFI in the future for OAuth 2.0) by someone who isn't good at Scheme.
 
   It's obviously a work-in-progress. As of now, it does nothing but =POST= JSON with =content= text to webhooks and probably even fails at that.
 
@@ -9,6 +9,7 @@
 - =intarweb=
 - =medea=
 - =openssl=
+- =system=
 - =uri-common=
 
 *PS:* We could've used =\lambda\aleph= in this file if it weren't for the fact that GitHub's markup engine doesn't render some org-mode special symbols.
