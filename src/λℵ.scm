@@ -7,12 +7,13 @@
 
 ;; Bot's user agent
 ;; https://discordapp.com/developers/docs/reference#user-agent
-(client-software
- (list (list (string-append "DiscordBot (" project-url ", " project-version ")")
-            project-version version #f)))
+;;
+;; Discord doesn't recognise the version string and wants it to be incorporated
+;; in the system information section, so we're leaving the version string blank
+;; and appending it to our project URL
+(client-software (list (list "DiscordBot" #f (string-append project-url ", " project-version))))
 
-(define payload (json->string '((username . "bot test")
-                                (content . "hello world"))))
+(define payload (json->string '((content . "one two three"))))
 
 ;; webhook-uri is the URI string containing id and token
 ;; defined in the webhook-secrets module
