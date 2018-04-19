@@ -1,9 +1,15 @@
 (use intarweb http-client medea)
 (import webhook-secrets)
+(use uri-common)
 
-(let ((url "https://github.com/erkin/lambda-aleph") (version "0.0.2"))
-  (client-software
-   '(((append-string "Discord-Bot (" url ", " version ")"))) version #f))
+(define project-url "https://github.com/erkin/lambda-aleph")
+(define project-version "0.0.3")
+
+;; Bot's user agent
+;; https://discordapp.com/developers/docs/reference#user-agent
+(client-software
+ (list (list (string-append "DiscordBot (" project-url ", " project-version ")")
+            project-version version #f)))
 
 (define payload (json->string '((username . "bot test")
                                 (content . "hello world"))))

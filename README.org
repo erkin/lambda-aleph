@@ -1,4 +1,4 @@
-* λℵ v0.0.2
+* λℵ v0.0.3
   
   λℵ is a half-arsed attempt at writing a simple Discord bot using only CHICKEN Scheme (probably with minimal C FFI in the future for OAuth 2.0) by someone who isn't good at Scheme.
 
