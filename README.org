@@ -11,4 +11,4 @@
 - =openssl=
 - =uri-common=
 
-*PS:* We could've used \\lambda\aleph in this file if it weren't for the fact that GitHub's markup engine doesn't render some org-mode special symbols.
+*PS:* We could've used =\lambda\aleph= in this file if it weren't for the fact that GitHub's markup engine doesn't render some org-mode special symbols.
