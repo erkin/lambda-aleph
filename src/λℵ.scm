@@ -1,9 +1,8 @@
 (use intarweb http-client medea)
 (import webhook-secrets)
-(use uri-common)
 
 (define project-url "https://github.com/erkin/lambda-aleph")
-(define project-version "0.0.3")
+(define project-version "0.0.4")
 
 ;; Bot's user agent
 ;; https://discordapp.com/developers/docs/reference#user-agent

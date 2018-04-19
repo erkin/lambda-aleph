@@ -1,4 +1,3 @@
-;; -*- coding: utf-8; mode: scheme -*-
 (define-system λℵ
   (scheme-file "secrets")
   (scheme-file "λℵ" depends: '("secrets")))
