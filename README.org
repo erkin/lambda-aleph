@@ -7,8 +7,7 @@
 ** Dependencies
 *** Connection
 - =http-client=
-  - =intarweb=
-  - =openssl=
+- =openssl=
 - =uri-common=
 
 *** Parsing

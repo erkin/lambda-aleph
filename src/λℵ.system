@@ -3,4 +3,4 @@
   (scheme-file "secret")
   (scheme-file "λℵ" depends: '("secret")))
 
-(load-system λℵ)
+(load-system λℵ quiet: #t)
