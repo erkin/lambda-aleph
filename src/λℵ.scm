@@ -1,8 +1,13 @@
-(use intarweb http-client medea)
+(use intarweb http-client medea uri-common srfi-13)
 (import webhook-secrets)
 
 (define project-url "https://github.com/erkin/lambda-aleph")
 (define project-version "0.0.4")
+
+(define webhook-uri
+  (uri-reference
+   (string-append "https://canary.discordapp.com/api/webhooks/"
+                  webhook-id "/" webhook-token)))
 
 ;; Bot's user agent
 ;; https://discordapp.com/developers/docs/reference#user-agent
@@ -13,14 +18,14 @@
 (client-software
  (list (list "DiscordBot" #f (string-append project-url ", " project-version))))
 
-(define payload (json->string '((content . "one two three"))))
-
 ;; webhook-uri is the URI string containing id and token
 ;; defined in the webhook-secrets module
+
+(define input )
+
 (with-input-from-request
  (make-request method: 'POST
                uri: webhook-uri
                headers: (headers '((content-type application/json))))
- payload
+ (json->string (list (cons 'content (string-join (cdr (argv))))))
  print)
-

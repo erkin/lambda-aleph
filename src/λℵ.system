@@ -1,3 +1,6 @@
+(use system)
 (define-system λℵ
-  (scheme-file "secrets")
-  (scheme-file "λℵ" depends: '("secrets")))
+  (scheme-file "secret")
+  (scheme-file "λℵ" depends: '("secret")))
+
+(load-system λℵ)
