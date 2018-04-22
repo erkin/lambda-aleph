@@ -18,11 +18,6 @@
 (client-software
  (list (list "DiscordBot" #f (string-append project-url ", " project-version))))
 
-;; webhook-uri is the URI string containing id and token
-;; defined in the webhook-secrets module
-
-(define input )
-
 (with-input-from-request
  (make-request method: 'POST
                uri: webhook-uri
