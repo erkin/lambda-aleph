@@ -12,7 +12,6 @@
 
 *** Parsing
 - =medea=
-- =srfi-13=
 
 *** Building
 - =system=
