@@ -36,4 +36,6 @@
 
 (receive (options operands)
     (args:parse (command-line-arguments) opts)
-  (exit))
+  (if (null? (command-line-arguments))
+      (usage)
+      (exit)))
