@@ -1,15 +1,5 @@
-(use intarweb http-client medea uri-common srfi-13)
-(import webhook-secrets) ; contains webhook-id and webhook-token
-
-(define project-url "https://github.com/erkin/lambda-aleph")
-(define project-version "0.0.4")
-
-(define project-name "λℵ")
-
-(define webhook-uri
-  (uri-reference
-   (string-append "https://canary.discordapp.com/api/webhooks/"
-                  webhook-id "/" webhook-token)))
+(use http-client srfi-13)
+(import webhook project)
 
 ;; Bot's user agent
 ;; https://discordapp.com/developers/docs/reference#user-agent
@@ -20,17 +10,7 @@
 (client-software
  (list (list "DiscordBot" #f (string-append project-url ", " project-version))))
 
-;; We can send a bunch of stuff over JSON
-;; https://discordapp.com/developers/docs/resources/webhook#execute-webhook
-;;
-;; We send commandline arguments directly to the channel for the time being
-(define webhook-payload
-  (json->string (list (cons 'content (string-join (cdr (argv))))
-                      (cons 'username project-name))))
+(define arguments
+  (string-join (cdr (argv))))
 
-(with-input-from-request
- (make-request method: 'POST
-               uri: webhook-uri
-               headers: (headers '((content-type application/json))))
- webhook-payload
- print)
+(webhook-send webhook-uri (webhook-payload arguments))
