@@ -8,6 +8,7 @@
 - =http-client=
 - =openssl=
 - =uri-common=
+- =websockets=
 
 *** Parsing
 - =args=
@@ -16,11 +17,3 @@
 *** Building
 - =system=
 
-** Notes
-   I can't be arsed to implement websockets and OAuth 2.0 functionality for now.
-   You'll need to connect to the gateway at least once with [[https://discordapi.com/unofficial/libs.html][some other library]]
-   at least once before you use the bot. Or use any websocket library of your choice.
-   I used [[https://addons.mozilla.org/en-US/firefox/addon/simple-websocket-client/][this]]. The rest is just =PUT=, =POST=, =PATCH= and =GET= on the REST API.
-   
-   *\star :* We could've used =\lambda\aleph= in this file if it weren't for the
-   fact that GitHub's markup engine doesn't render some org-mode special symbols.

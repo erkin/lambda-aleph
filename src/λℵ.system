@@ -2,7 +2,8 @@
 (define-system λℵ
   (scheme-file "secret")
   (scheme-file "project")
-  (scheme-file "webhook" depends: '("secret" "project"))
-  (scheme-file "λℵ" depends: '("webhook" "project")))
+  (scheme-file "webhooks" depends: '("secret" "project"))
+  (scheme-file "websockets" depends: '("secret" "project"))
+  (scheme-file "λℵ" depends: '("project" "webhooks" "websockets")))
 
 (load-system λℵ quiet: #t)

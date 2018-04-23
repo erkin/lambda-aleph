@@ -1,5 +1,5 @@
 (use args http-client)
-(import webhook project)
+(import webhook project socket)
 
 (define opts
   (list
@@ -9,19 +9,17 @@
                      (version))
    (args:make-option (s send) (required: "STRING")
                      "Post STRING to channel through webhook"
-                     (send-arg arg))))
+                     (webhook-send-string arg))))
 
 (define (usage)
   (print "Usage: " (car (argv)) " [OPTIONS]")
   (newline)
-  (print (args:usage opts))
-  (exit))
+  (print (args:usage opts)))
 
 (define (version)
-  (print project-name " v" project-version)
-  (exit))
+  (print project-name " v" project-version))
 
-(define (send-arg arg)
+(define (webhook-send-string arg)
   (webhook-send webhook-uri (webhook-payload arg))
   (print "Sent: " arg))
 
