@@ -1,4 +1,4 @@
-(use args http-client srfi-13)
+(use args http-client)
 (import webhook project)
 
 (define opts
@@ -6,22 +6,24 @@
    (args:make-option (h help) #:none "Print this help message"
                      (usage))
    (args:make-option (v version) #:none "Display version"
-                     (print project-name project-version)
-                     (exit))
+                     (version))
    (args:make-option (s send) (required: "STRING")
                      "Post STRING to channel through webhook"
                      (send-arg arg))))
 
 (define (usage)
- (with-output-to-port (current-error-port)
-   (lambda ()
-     (print "Usage: " (car (argv)) " [OPTIONS]")
-     (newline)
-     (print (args:usage opts))))
- (exit 1))
+  (print "Usage: " (car (argv)) " [OPTIONS]")
+  (newline)
+  (print (args:usage opts))
+  (exit))
+
+(define (version)
+  (print project-name project-version)
+  (exit))
 
 (define (send-arg arg)
-  (webhook-send webhook-uri (webhook-payload arg)))
+  (webhook-send webhook-uri (webhook-payload arg))
+  (print "Sent: " arg))
 
 ;; Bot's user agent
 ;; https://discordapp.com/developers/docs/reference#user-agent
@@ -33,5 +35,5 @@
  (list (list "DiscordBot" #f (string-append project-url ", " project-version))))
 
 (receive (options operands)
-    (args:parse (command-line-arguments) opts)
-  (print "Sent: " (alist-ref 'send options)))
+    (args:parse (command-line-arguments) opts))
+
