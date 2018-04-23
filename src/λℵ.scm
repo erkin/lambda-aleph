@@ -1,5 +1,5 @@
 (use args http-client)
-(import webhook project)
+(import webhook project socket secrets)
 
 (define opts
   (list
@@ -9,20 +9,21 @@
                      (version))
    (args:make-option (s send) (required: "STRING")
                      "Post STRING to channel through webhook"
-                     (send-arg arg))))
+                     (webhook-send-string arg))))
 
 (define (usage)
   (print "Usage: " (car (argv)) " [OPTIONS]")
   (newline)
-  (print (args:usage opts))
-  (exit))
+  (print (args:usage opts)))
 
 (define (version)
-  (print project-name " v" project-version)
-  (exit))
+  (print project-name " v" project-version))
 
-(define (send-arg arg)
-  (webhook-send webhook-uri (webhook-payload arg))
+(define (webhook-send-string arg)
+  (send-webhook-request-with-json
+   webhook-uri
+   'POST
+   (make-webhook-payload arg))
   (print "Sent: " arg))
 
 ;; Bot's user agent
@@ -36,4 +37,6 @@
 
 (receive (options operands)
     (args:parse (command-line-arguments) opts)
-  (exit))
+  (if (null? (command-line-arguments))
+      (usage)
+      (exit)))
