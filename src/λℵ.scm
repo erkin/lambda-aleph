@@ -21,8 +21,9 @@
 
 (define (webhook-send-string arg)
   (send-webhook-request-with-json
-   (make-webhook-uri 'webhook (get-guild-webhooks "channel" 'testwau) secret-webhook-token)
-   'POST (webhook-payload arg))
+   webhook-uri
+   'POST
+   (make-webhook-payload arg))
   (print "Sent: " arg))
 
 ;; Bot's user agent

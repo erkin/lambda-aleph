@@ -1,10 +1,8 @@
 ;; Put your secrets here and rename it secret.scm
 ;; Or rename it whatever you want and call it in λℵ.system
-(module webhook-secrets (webhook-id webhook-token)
+(module secrets *
   (import scheme)
-  (define webhook-id "<your-webhook-id-here>")
-  (define webhook-token "<your-webhook-token-here>"))
-
-(module app-secrets (app-token)
-  (import scheme)
-  (define app-token "<your-app-token-here>"))
+  
+  (define secret-webhook-id "<your-webhook-id-here>")
+  (define secret-webhook-token "<your-webhook-token-here>")
+  (define secret-app-token "<your-app-token-here>"))
