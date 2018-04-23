@@ -1,26 +1,44 @@
-(module webhook (webhook-uri webhook-payload webhook-send)
+(module webhook *
   (import chicken scheme)
-  (import webhook-secrets project rest)
+  (import project rest secrets)
   (use intarweb http-client medea uri-common)
   
-  (define webhook-uri
-   (uri-reference
-    (string-append api-uri "/webhooks/"
-                   webhook-id "/" webhook-token)))
+  ;; https://discordapp.com/developers/docs/resources/webhook
 
-  ;; We can send a bunch of stuff over JSON
-  ;; https://discordapp.com/developers/docs/resources/webhook#execute-webhook
-  ;;
-  ;; We're only sending commandline arguments directly to the channel
-  ;; for the time being
-  (define (webhook-payload content)
+  ;; mode is either 'channel or 'guild
+  ;; target is the alist id of said channel or guild, returning a snowflake id
+  (define (get-guild-webhooks mode target)
+    (send-webhook-request
+     (uri-reference
+      (if (string=? mode "guild")
+          (string-append api-uri "/guilds/"
+                         (cdr (assoc target guilds)) "/webhooks")
+          (string-append api-uri "/channels/"
+                         (cdr (assoc target channels)) "/webhooks"))) 'GET))
+
+  (define (make-webhook-uri mode id #!optional token)
+    (if (null? token)
+        (uri-reference
+         (string-append api-uri "/" mode "s/" id))
+        (uri-reference
+         (string-append api-uri "/" mode "s/" id "/" token))))
+
+  (define (make-webhook-payload content)
     (json->string (list (cons 'content content)
                         (cons 'username project-name))))
 
-  (define (webhook-send uri payload)
+  ;; request can be DELETE, GET, PATCH, POST, PUT
+  (define (send-webhook-request uri request)
     (with-input-from-request
-     (make-request method: 'POST
+     (make-request method: request
+                   uri: uri)
+     #f
+     current-output-port))
+
+  (define (send-webhook-request-with-json uri request payload)
+    (with-input-from-request
+     (make-request method: request
                    uri: uri
                    headers: (headers '((content-type application/json))))
      payload
-     print)))
+     current-output-port)))

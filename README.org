@@ -1,7 +1,8 @@
-* λℵ v0.0.5
+* λℵ v0.0.6
   
-  λℵ\star is a half-arsed attempt at writing a simple Discord bot using only
-  CHICKEN Scheme by someone who isn't good at Scheme.
+  λℵ\star is a half-arsed attempt at writing a simple Discord bot from the
+  ground up, using only CHICKEN Scheme, by someone who hasn't done any network
+  programming before and isn't good at Scheme.
 
 ** Dependencies
 *** Connection

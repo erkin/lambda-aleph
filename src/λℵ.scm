@@ -1,5 +1,5 @@
 (use args http-client)
-(import webhook project socket)
+(import webhook project socket secrets)
 
 (define opts
   (list
@@ -20,7 +20,9 @@
   (print project-name " v" project-version))
 
 (define (webhook-send-string arg)
-  (webhook-send webhook-uri (webhook-payload arg))
+  (send-webhook-request-with-json
+   (make-webhook-uri 'webhook (get-guild-webhooks "channel" 'testwau) secret-webhook-token)
+   'POST (webhook-payload arg))
   (print "Sent: " arg))
 
 ;; Bot's user agent
