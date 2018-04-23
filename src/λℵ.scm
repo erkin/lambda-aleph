@@ -18,7 +18,7 @@
   (exit))
 
 (define (version)
-  (print project-name project-version)
+  (print project-name " v" project-version)
   (exit))
 
 (define (send-arg arg)
@@ -35,5 +35,5 @@
  (list (list "DiscordBot" #f (string-append project-url ", " project-version))))
 
 (receive (options operands)
-    (args:parse (command-line-arguments) opts))
-
+    (args:parse (command-line-arguments) opts)
+  (exit))
