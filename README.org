@@ -1,5 +1,6 @@
 * λℵ v0.0.5
-  \lambda\alefsym\star is a half-arsed attempt at writing a simple Discord bot using only
+  
+  λℵ\star is a half-arsed attempt at writing a simple Discord bot using only
   CHICKEN Scheme by someone who isn't good at Scheme.
 
 ** Dependencies
@@ -21,5 +22,5 @@
    at least once before you use the bot. Or use any websocket library of your choice.
    I used [[https://addons.mozilla.org/en-US/firefox/addon/simple-websocket-client/][this]]. The rest is just =PUT=, =POST=, =PATCH= and =GET= on the REST API.
    
-   *\star :* We could've used =\lambda\alefsym= in this file if it weren't for the
+   *\star :* We could've used =\lambda\aleph= in this file if it weren't for the
    fact that GitHub's markup engine doesn't render some org-mode special symbols.
