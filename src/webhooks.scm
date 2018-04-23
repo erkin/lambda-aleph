@@ -1,11 +1,11 @@
 (module webhook (webhook-uri webhook-payload webhook-send)
   (import chicken scheme)
-  (import webhook-secrets project)
+  (import webhook-secrets project rest)
   (use intarweb http-client medea uri-common)
   
   (define webhook-uri
    (uri-reference
-    (string-append "https://canary.discordapp.com/api/webhooks/"
+    (string-append api-uri "/webhooks/"
                    webhook-id "/" webhook-token)))
 
   ;; We can send a bunch of stuff over JSON
