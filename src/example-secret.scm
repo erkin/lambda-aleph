@@ -1,4 +1,4 @@
-;; Put your webhook secrets here and rename it secret.scm
+;; Put your secrets here and rename it secret.scm
 ;; Or rename it whatever you want and call it in λℵ.system
 (module webhook-secrets (webhook-id webhook-token)
   (import scheme)
