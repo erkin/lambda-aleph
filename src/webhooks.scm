@@ -10,8 +10,8 @@
      (string-append api-uri "/webhooks/" secret-webhook-id "/" secret-webhook-token)))
 
   (define (make-webhook-payload content)
-    (json->string '((content ,content)
-                    (username ,project-name))))
+    (json->string `((content . ,content)
+                    (username . ,project-name))))
 
   ;; request can be DELETE, GET, PATCH, POST, PUT
   (define (send-webhook-request uri request)
