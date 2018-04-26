@@ -1,6 +1,5 @@
 (use args http-client)
-(import sockets rest hooks)
-(import project)
+(import project secrets sockets rest hooks)
 
 (define opts
   (list
