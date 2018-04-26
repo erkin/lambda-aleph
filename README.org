@@ -1,4 +1,4 @@
-* λℵ v0.0.6
+* λℵ v0.0.7
   
   λℵ\star is a half-arsed attempt at writing a simple Discord bot from the
   ground up, using only CHICKEN Scheme, by someone who hasn't done any network
@@ -18,3 +18,7 @@
 *** Building
 - =system=
 
+
+** Notes
+   *\star :* We could've used =\lambda\aleph= in this file if it weren't for the
+   fact that GitHub's markup engine doesn't render some org-mode special symbols.

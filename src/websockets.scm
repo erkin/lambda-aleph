@@ -1,4 +1,4 @@
-(module socket ()
+(module sockets ()
   (import chicken scheme)
   (import project secrets)
   (use websockets)
