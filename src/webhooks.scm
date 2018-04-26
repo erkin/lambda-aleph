@@ -1,4 +1,4 @@
-(module webhook *
+(module hooks *
   (import chicken scheme)
   (import project rest secrets)
   (use intarweb http-client medea uri-common)

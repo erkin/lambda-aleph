@@ -1,5 +1,5 @@
 (use args http-client)
-(import sockets rest webhook)
+(import sockets rest hooks)
 (import project)
 
 (define opts
