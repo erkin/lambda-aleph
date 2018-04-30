@@ -2,3 +2,4 @@
 .\#*
 src/λℵ
 src/secret.scm
+bin/*
