@@ -32,11 +32,11 @@
 ;; Discord doesn't recognise the version string and wants it to be incorporated
 ;; in the system information section, so we're leaving the version string blank
 ;; and appending it to our project URL
-(client-software
- (list (list "DiscordBot" #f (string-append project-url ", " project-version))))
+(define (user-agent)
+  (client-software
+   (list (list "DiscordBot" #f
+               (string-append project-url ", " project-version)))))
 
-(receive (options operands)
-    (args:parse (command-line-arguments) opts)
-  (if (null? (command-line-arguments))
-      (usage)
-      (exit)))
+(define (main)
+  (user-agent)
+  (args:parse (command-line-arguments) opts))
