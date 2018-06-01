@@ -1,4 +1,8 @@
-(use args http-client)
+#!/usr/bin/csi -ss
+
+(use args http-client system)
+(load "λℵ.system")
+(load-system λℵ quiet: #t)
 (import project secrets sockets rest hooks)
 
 (define opts
@@ -29,9 +33,7 @@
 ;; Discord doesn't recognise the version string and wants it to be incorporated
 ;; in the system information section, so we're leaving the version string blank
 ;; and appending it to our project URL
-(define (main)
+(define (main args)
   (client-software
    `(,'("DiscordBot" #f (string-append project-url ", " project-version))))
-  (args:parse (command-line-arguments) opts))
-
-(main)
+  (if (null? args) (usage) (args:parse args opts)))
