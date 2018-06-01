@@ -1,5 +1,5 @@
 \#*\#
 .\#*
 src/λℵ
-src/secret.scm
+src/config.scm
 bin/*
