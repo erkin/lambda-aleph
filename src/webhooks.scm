@@ -1,10 +1,13 @@
-(module hooks *
+(module λℵ-hooks *
   (import chicken scheme)
-  (import project rest secrets)
+  (import λℵ-project λℵ-secrets λℵ-rest)
   (use intarweb http-client medea uri-common)
   
   ;; https://discordapp.com/developers/docs/resources/webhook
 
+
+  ;;; TODO: REWRITE ALL
+  
   (define webhook-uri
     (uri-reference
      (string-append api-uri "/webhooks/" secret-webhook-id "/" secret-webhook-token)))

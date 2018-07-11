@@ -1,6 +1,0 @@
-(use system)
-(define-system λℵ
-  (scheme-file "config")
-  (scheme-file "rest" depends: '("config"))
-  (scheme-file "webhooks" depends: '("config"))
-  (scheme-file "websockets" depends: '("config")))

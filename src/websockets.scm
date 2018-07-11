@@ -1,6 +1,5 @@
-(module sockets ()
+(module λℵ-sockets ()
   (import chicken scheme)
-  (import project secrets)
   (use websockets)
 
   (define socket-uri "wss://gateway.discord.gg/"))

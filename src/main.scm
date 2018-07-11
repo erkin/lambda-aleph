@@ -1,9 +1,10 @@
-#!/usr/bin/csi -ss
-
 (use args http-client system)
-(load "λℵ.system")
-(load-system λℵ quiet: #t)
-(import project secrets sockets rest hooks)
+(include "config")
+(include "websockets")
+(include "channel")
+(include "webhooks")
+(import λℵ-project λℵ-secrets λℵ-sockets λℵ-hooks)
+(import λℵ-channel) ; + rest
 
 (define opts
   (list
@@ -12,8 +13,11 @@
    (args:make-option (v version) #:none "Display version"
                      (print project-name " v" project-version))
    (args:make-option (s send) (required: "STRING")
-                     "Post STRING to channel through webhook"
-                     (webhook-send-string arg))))
+                     "Post STRING to the test channel through webhook"
+                     (webhook-send-string arg))
+   (args:make-option (g get) (required: "CHANNEL-ID")
+                     "GET channel CHANNEL-ID"
+                     (get-channel arg))))
 
 (define (usage)
   (print "Usage: " (car (argv)) " [OPTIONS]")
@@ -37,3 +41,5 @@
   (client-software
    `(,'("DiscordBot" #f (string-append project-url ", " project-version))))
   (if (null? args) (usage) (args:parse args opts)))
+
+(main (command-line-arguments))
