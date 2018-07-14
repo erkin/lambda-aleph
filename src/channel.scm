@@ -1,17 +1,14 @@
 (module λℵ-channel *
   (import chicken scheme)
-  (use http-client intarweb uri-common medea)
-  (import λℵ-config λℵ-secrets)
+  (import λℵ-rest)
+
+  ;; This file implements the `channel` section of the Discord REST API
+  ;; https://discordapp.com/developers/docs/resources/channel
   
-    ;;
+  ;;
   ;; -> channel
   (define (get-channel channel-id)
-    (call-with-input-request
-     (make-request method: 'GET
-                   uri: (uri-reference (string-append api-uri "/channels/" channel-id))
-                   headers: (headers auth))
-     #f
-     print))
+    (channel-request request: 'GET sub-uri: (string-append "/channels/" channel-id)))
 
   ;; MANAGE_CHANNELS
   ;; -> channel

@@ -1,6 +1,6 @@
 (module λℵ-hooks *
   (import chicken scheme)
-  (import λℵ-project λℵ-secrets λℵ-rest)
+  (import λℵ-project λℵ-secret λℵ-channel)
   (use intarweb http-client medea uri-common)
   
   ;; https://discordapp.com/developers/docs/resources/webhook

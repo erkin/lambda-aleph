@@ -1,10 +1,11 @@
 (use args http-client system)
 (include "config")
 (include "websockets")
+(include "rest")
 (include "channel")
 (include "webhooks")
-(import λℵ-project λℵ-secrets λℵ-sockets λℵ-hooks)
-(import λℵ-channel) ; + rest
+(import λℵ-project λℵ-secret λℵ-sockets λℵ-hooks)
+(import λℵ-channel)
 
 (define opts
   (list
