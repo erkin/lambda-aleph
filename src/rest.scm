@@ -1,4 +1,4 @@
-(module λℵ-rest *
+(module λℵ-rest (rest-request)
   (import chicken scheme data-structures)
   (use http-client intarweb uri-common medea)
   (import λℵ-project λℵ-secret)
@@ -23,27 +23,19 @@
    `((authorization . ,discord-auth-unparser) . ,(header-unparsers)))
 
   
-  ;; A macro to avoid repetition and simplify channel requests
+  ;; TODO: Turn this into a macro to avoid repetition and simplify channel requests
 
-  ;; TODO
-  ;; (define-syntax channel-request
-  ;;   (syntax-rules ()
-  ;;     ((_ channel-id)
-  ;;      (call-with-input-request
-  ;;       (make-request method: 'GET
-  ;;                     uri: (uri-reference
-  ;;                           (string-append api-uri sub-uri))
-  ;;                     headers: (headers auth-headers))))))
-
-  (define (channel-request #!key (request 'GET) (query #f) (payload #f) (sub-uri ""))
+  (define (rest-request #!key (request 'GET) (query #f) (payload #f) (sub-uri ""))
+    (define rest-request-header
+      (if query
+          (headers (append auth-header '((content-type #(application/json ((charset . utf-8)))))))
+          (if payload
+              (headers (list auth-header '((content-type #(multipart/form-data ())))))
+              (headers auth-header))))
     (call-with-input-request
      (make-request method: request
                    uri: (uri-reference
                          (string-append api-uri sub-uri))
-                   headers: (if query
-                                (headers (append auth-header '(content-type . application/json) query))
-                                (if payload
-                                    (headers (append auth-header '(content-type . multipart/form-data)))
-                                    (headers auth-header))))
-     #f
+                   headers: rest-request-header)
+     (if query (json->string query) #f)
      current-output-port)))

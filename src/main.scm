@@ -12,13 +12,7 @@
    (args:make-option (h help) #:none "Print this help message"
                      (usage))
    (args:make-option (v version) #:none "Display version"
-                     (print project-name " v" project-version))
-   (args:make-option (s send) (required: "STRING")
-                     "Post STRING to the test channel through webhook"
-                     (webhook-send-string arg))
-   (args:make-option (g get) (required: "CHANNEL-ID")
-                     "GET channel CHANNEL-ID"
-                     (get-channel arg))))
+                     (print project-name " v" project-version))))
 
 (define (usage)
   (print "Usage: " (car (argv)) " [OPTIONS]")
