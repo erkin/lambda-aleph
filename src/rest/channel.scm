@@ -1,4 +1,4 @@
-(module λℵ-channel *
+(module λℵ-rest-channel *
   (import chicken scheme)
   (import λℵ-rest)
 
