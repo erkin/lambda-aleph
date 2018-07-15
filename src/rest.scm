@@ -29,10 +29,13 @@
           (if payload
               (headers (list auth-header '((content-type #(multipart/form-data ())))))
               (headers auth-header))))
-    (call-with-input-request
-     (make-request method: request
-                   uri: (uri-reference
-                         (string-append api-uri sub-uri))
-                   headers: rest-request-header)
-     (if query (json->string query) #f)
-     current-output-port)))
+    (receive (json uri response)
+        (call-with-input-request
+         (make-request method: request
+                       uri: (uri-reference
+                             (string-append api-uri sub-uri))
+                       headers: rest-request-header)
+         (if query (json->string query) #f)
+         read)
+      (print "Received: " json)
+      (print "Got response " (response-status response) " from " (uri->string uri)))))
