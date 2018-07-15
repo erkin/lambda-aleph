@@ -16,7 +16,12 @@
 - =medea=
 
 ** Building
-=csc main.scm -o λℵ=
+   =csc main.scm -o λℵ= but...
+   The binary only has arguments for printing the version/copyright
+   string and the help message.
+   Currently there's no interface for the procedures built into it
+   until I figure out a good way to do so. You can run it with
+   =csi main.scm= and manually call the procedures instead.
 ** Notes
    *\star :* We could've used =\lambda\aleph= in this file if it weren't for the
    fact that GitHub's markup engine doesn't render some org-mode special symbols.

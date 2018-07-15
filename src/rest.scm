@@ -3,9 +3,9 @@
   (use http-client intarweb uri-common medea)
   (import λℵ-project λℵ-secret)
   
-  ;; basic-auth-unparser requires `username` and `password` strings in
-  ;; the `Authorization` header. Discord just needs a `Bot` token string.
-  ;; https://discordapp.com/developers/docs/reference#authentication
+;;; basic-auth-unparser requires `username` and `password` strings in
+;;; the `Authorization` header. Discord just needs a `Bot` token string.
+;;; https://discordapp.com/developers/docs/reference#authentication
   
   (define auth-header `((authorization #(discord ((bot-token . ,secret-app-token))))))
 
@@ -21,9 +21,6 @@
 
   (header-unparsers
    `((authorization . ,discord-auth-unparser) . ,(header-unparsers)))
-
-  
-  ;; TODO: Turn this into a macro to avoid repetition and simplify channel requests
 
   (define (rest-request #!key (request 'GET) (query #f) (payload #f) (sub-uri ""))
     (define rest-request-header

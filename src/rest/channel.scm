@@ -1,22 +1,27 @@
 (module λℵ-rest-channel *
   (import chicken scheme)
   (import λℵ-rest)
-
-  ;;; This file implements the `channel` section of the Discord REST API
-  ;;; https://discordapp.com/developers/docs/resources/channel
-
-  ;;; Documentation format:
-  ;;; PERMISSION [OPTIONAL_PERMISSION]
-  ;;; query_value (query-values) [optional_query_value] [(optional_query_values)]
-  ;;; return_value (return_values)
-
-  ;;; The order of procedures is: GET POST PUT PATCH DELETE
   
-  ;;; `query` is an alist to be converted into a JSON string.
-  ;;; You can pass #f as `query` if all values are optional.
-  ;;; This does not apply to `post-channel-invite` which
-  ;;; requires an empty JSON body at least.
+;;; This file implements the `channel` section of the Discord REST API
+;;; https://discordapp.com/developers/docs/resources/channel
 
+
+;;; Documentation format:
+  
+;;; PERMISSION [OPTIONAL_PERMISSION]
+;;; query_value (query-values) [optional_query_value] [(optional_query_values)]
+;;; return_value (return_values)
+  
+;;; Fields marked with ? indicates that the official API documentation does not
+;;; state anything about them. I'll try to find them out experimentally.
+  
+;;; `query` is an alist to be converted into a JSON string.
+;;; You can pass #f as `query` if all values are optional.
+;;; This does not apply to `post-channel-invite` which
+;;; requires an empty JSON body at least.
+
+
+;;; The order of procedures is: GET POST PUT PATCH DELETE
 
   ;;
   ;;
@@ -213,7 +218,8 @@
      query: query))
 
   ;;
-  ;; ->
+  ;;
+  ;; ?
   (define (delete-group-user channel-id user-id)
     (rest-request
      request: 'DELETE sub-uri: (string-append "/channels/" channel-id

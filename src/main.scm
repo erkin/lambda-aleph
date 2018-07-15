@@ -36,19 +36,13 @@
   (newline)
   (print (args:usage opts)))
 
-(define (webhook-send-string arg)
-  (send-webhook-request-with-json
-   webhook-uri
-   'POST
-   (make-webhook-payload arg))
-  (print "Sent: " arg))
+;;; Bot's user agent
+;;; https://discordapp.com/developers/docs/reference#user-agent
 
-;; Bot's user agent
-;; https://discordapp.com/developers/docs/reference#user-agent
-;;
-;; Discord doesn't recognise the version string and wants it to be incorporated
-;; in the system information section, so we're leaving the version string blank
-;; and appending it to our project URL
+;;; Discord doesn't recognise the version string and wants it to be incorporated
+;;; in the system information section, so we're leaving the version string
+;;; blank (#f) and appending it to our project URL instead.
+
 (define (main args)
   (client-software
    `(,'("DiscordBot" #f (string-append project-url ", " project-version))))
