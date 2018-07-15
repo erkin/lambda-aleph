@@ -2,7 +2,7 @@
   (import scheme)
 
   (define project-url "https://erkin.co/lambda-aleph")
-  (define project-version "0.0.10")
+  (define project-version "0.1.0")
   (define project-name "λℵ")
   
   ;; https://discordapp.com/developers/docs/reference
