@@ -8,6 +8,4 @@
 (module λℵ-secret *
   (import scheme)
 
-  (define secret-webhook-id "my webhook id")
-  (define secret-webhook-token "my webhook token")
   (define secret-app-token "my app token"))
