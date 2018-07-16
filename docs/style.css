@@ -1,0 +1,115 @@
+@import url(https://fonts.googleapis.com/css?family=Voces);
+@import url(https://fonts.googleapis.com/css?family=Space+Mono);
+
+html
+{
+    height: 100%;
+    display: table;
+    margin: auto;
+}
+
+body
+{
+    background-image: url("media/nebula.jpg");
+    background-repeat: repeat-x;
+    
+    background-color: #ffe0ea;
+
+    height: 100%;
+    display: table-cell;
+/*    vertical-align: middle; */
+
+    color: #555;
+    line-height: 1.7em;
+
+    font-family: "Voces", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+header
+{
+    vertical-align: top;
+    display: inline-block;
+    width: 250px;
+    margin-top: 150px;
+}
+
+section
+{
+    display: inline-block;
+    width: 520px;
+    margin-top: 180px;
+}
+
+footer
+{
+    vertical-align: bottom;
+    padding-top: 100px;
+    line-height: 1em;
+    width: 300px;
+    bottom: 30px;
+}
+
+
+code
+{
+    color: #222;
+    background: #f0f0f0;
+    font-family: "Space Mono", mono, monospace;
+    font-size: 16px;
+}
+
+h1
+{
+    text-align: center;
+    font-size: 64px;
+    line-height: 0em;
+    font-weight: 500;
+}
+
+h2, h3
+{
+    color: #222;
+    line-height: 1em;
+    font-weight: 500;
+    font-variant: small-caps;
+}
+
+a
+{
+    color: #39c;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+small
+{
+    font-size: 10px;
+    font-family: "Voces", sans-serif;
+}
+
+ul
+{
+    list-style-type: none;
+}
+
+
+span.smol
+{
+    font-variant: small-caps;
+}
+
+div.right
+{
+    font-size: 10px;
+    font-family: "Voces", sans-serif;
+    text-align: right;
+}
+
+/*
+  Local Variables:
+    mode: css
+    indent-tabs-mode: nil
+  End:
+*/

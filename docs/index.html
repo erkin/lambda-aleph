@@ -1,10 +1,116 @@
 <!doctype html>
 <html lang="en">
+
   <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8">
+    <meta name="author" content="erkin">
+    <meta name="description" content="A Discord bot in CHICKEN Scheme">
+    <title>λℵ</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+
   <body>
-    fnord
+    <header>
+      <h1 title="TODO: replace this with an image">&#x03BB;&#x2135;</h1>
+    </header>
+
+    <section>
+      <h2>About</h2>
+      &#x03BB;&#x2135; (pronounced
+      &#x002F;&#x0027;l&#x00E6;m&#x002E;d&#x0259;
+      &#x0027;&#x0251;l&#x025B;f&#x002F;)
+      is an attempt at writing a
+      <a href="https://discordapp.com/">Discord</a>
+      bot in <a href="https://call-cc.org/">CHICKEN Scheme</a>.
+
+      <h2>Status</h2>
+      At the moment, the program barely works, if at all.
+
+      <ul>
+        <li><strong>API implementation</strong></li>
+        <ul>
+          <li>&#x274E; Websockets</li>
+          <li>&#x274E; REST API</li>
+          <ul>
+            <li>&#x274E; Audit Log</li>
+            <li>&#x2611; Channels</li>
+            <li>&#x274E; Emoji</li>
+            <li>&#x274E; Guild</li>
+            <li>&#x274E; Invite</li>
+            <li>&#x274E; User</li>
+            <li>&#x274E; Voice</li>
+            <li>&#x274E; Webhooks</li>
+          </ul>
+        </ul>
+        <li><strong>Design</strong></li>
+        <ul>
+          <li>&#x274E; Interface</li>
+          <li>&#x274E; Event loop</li>
+        </ul>
+      </ul>
+      <br>
+      <h2>Building &#x0026; Running</h2>
+      After experimenting around with <code>system</code>, Makefiles,
+      static linking, bundled shared libraries, and interpreted
+      scripts, I settled on including everything in
+      <code>main.scm</code> and compiling it to a single executable.
+      <br><br>
+      First, make sure you have the required eggs:
+      <br>
+      <code>chicken-install -s http-client openssl uri-common medea
+      websockets args</code>
+      <br>
+      (The latter two eggs don't do much right now.)
+      <br><br>
+      To build the program, you simply need to
+      <code>csc main.scm -o &#x03BB;&#x2135;</code> and run
+      <code>./λℵ -h</code> to see the help message, for instance.
+      However, you'll realise there's nothing in there other than an
+      ironically unhelpful message about calling <code>--help</code>
+      and <code>--version</code>. This is because there isn't any
+      interface for any of the procedures in there so far (see the
+      status above). So, until I write a proper command line interface
+      you'll need to load <code>main.scm</code> into <code>csi</code>
+      and call the procedures manually there. The imported modules
+      export all the necessary procedures anyway.
+      
+
+    </section>
+
+    <footer>
+      <p>
+        <small>
+          Kindly hosted by
+          <a href="https://github.com">
+            GitHub
+          </a>
+        </small>
+        <br>
+        <a href="https://www.mozilla.org/en-GB/firefox/">
+          <img src="media/any.gif"
+               title="Use Firefox anyway."
+               alt="[Some cheesy bumper sticker about how this page could be displayed with any modern browser. Sorry.]"/>
+
+          <a href="https://www.gnu.org/software/emacs/">
+            <img src="media/emacs.png"
+                 title="GNU Emacs: Everyone's favourite thermonuclear editor!"
+                 alt="[Powered by GNU Emacs.]"/>
+          </a>
+          <div align="right"
+               title="(K) Kallisti">
+            &#x24DA; &Kscr;&ascr;&lscr;&lscr;&iscr;&sscr;&tscr;&iscr;
+          </div>
+      </p>
+    </footer>
+
   </body>
 </html>
 
+<!--
+  Local Variables:
+    mode: html
+    coding: utf-8-unix
+    indent-tabs-mode: nil
+  End:
+-->
