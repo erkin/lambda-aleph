@@ -5,6 +5,7 @@
   
 ;;; basic-auth-unparser requires `username` and `password` strings in
 ;;; the `Authorization` header. Discord just needs a `Bot` token string.
+;;; So, we're defining a new auth-unparser here.
 ;;; https://discordapp.com/developers/docs/reference#authentication
   
   (define auth-header `((authorization #(discord ((bot-token . ,secret-app-token))))))
@@ -24,11 +25,9 @@
 
   (define (rest-request #!key (request 'GET) (query #f) (payload #f) (sub-uri ""))
     (define rest-request-header
-      (if query
+      (if query ; Set the content type if we're sending JSON queries or embed data
           (headers (append auth-header '((content-type #(application/json ((charset . utf-8)))))))
-          (if payload
-              (headers (list auth-header '((content-type #(multipart/form-data ())))))
-              (headers auth-header))))
+          (headers auth-header))) ;; add multipart/form-data for payload
     (receive (json uri response)
         (call-with-input-request
          (make-request method: request

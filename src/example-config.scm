@@ -1,14 +1,15 @@
 (module λℵ-project *
   (import scheme)
 
-  (define project-url "https://erkin.co/lambda-aleph")
-  (define project-version "0.1.0")
-  (define project-name "λℵ")
+  (define-constant project-url "https://erkin.co/lambda-aleph")
+  (define-constant project-version "0.1.0")
+  (define-constant project-name "λℵ")
   
   ;; https://discordapp.com/developers/docs/reference
-  (define api-uri "https://canary.discordapp.com/api"))
+  (define-constant api-uri "https://canary.discordapp.com/api")
+  (define-constant socket-uri "wss://gateway.discord.gg/"))
 
 (module λℵ-secret *
   (import scheme)
 
-  (define secret-app-token "my app token"))
+  (define-constant secret-app-token "my app token"))
