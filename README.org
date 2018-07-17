@@ -1,4 +1,4 @@
-* λℵ v0.1.3
+* λℵ v0.1.4
   
   λℵ\star is a half-arsed attempt at writing a simple Discord bot from the
   ground up, using CHICKEN Scheme.
