@@ -5,7 +5,6 @@
 ;;; This file implements the `channel` section of the Discord REST API
 ;;; https://discordapp.com/developers/docs/resources/channel
 
-
 ;;; Documentation format:
   
 ;;; PERMISSION [OPTIONAL_PERMISSION]
@@ -19,7 +18,6 @@
 ;;; You can pass #f as `query` if all values are optional.
 ;;; This does not apply to `post-channel-invite` which
 ;;; requires an empty JSON body at least.
-
 
 ;;; The order of procedures is: GET POST PUT PATCH DELETE
 
