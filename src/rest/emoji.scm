@@ -7,27 +7,42 @@
 
 ;;; See channel.scm for docstring reference.
 
-  (define (list-guild-emojis guild-id)
+  ;; MANAGE_EMOJIS
+  ;;
+  ;; (emoji)
+  (define (get-emojis guild-id)
     (rest-request
      request: 'GET sub-uri: (string-append "/guilds/" guild-id "/emojis")))
 
-  (define (get-guild-emoji guild-id emoji-id)
+  ;; MANAGE_EMOJIS
+  ;;
+  ;; emoji
+  (define (get-emoji guild-id emoji-id)
     (rest-request
      request: 'GET sub-uri: (string-append "/guilds/" guild-id
                                            "/emojis/" emoji-id)))
 
-  (define (create-guild-emoji guild-id query)
+  ;; MANAGE_EMOJIS
+  ;; name image roles
+  ;; emoji
+  (define (post-emoji guild-id query)
     (rest-request
      request: 'POST sub-uri: (string-append "/guilds/" guild-id)
      query: query))
 
-  (define (modify-guild-emoji guild-id emoji-id query)
+  ;; MANAGE_EMOJIS
+  ;; name roles
+  ;; emoji
+  (define (patch-emoji guild-id emoji-id query)
     (rest-request
      request: 'PATCH sub-uri: (string-append "/guilds/" guild-id
                                              "/emojis/" emoji-id)
      query: query))
 
-  (define (delete-guild-emoji guild-id emoji-id)
+  ;; MANAGE_EMOJIS
+  ;;
+  ;;
+  (define (delete-emoji guild-id emoji-id)
     (rest-request
      request: 'DELETE sub-uri: (string-append "/guilds/" guild-id
                                               "/emojis/" emoji-id))))
