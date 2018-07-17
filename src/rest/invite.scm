@@ -7,5 +7,18 @@
 
 ;;; See channel.scm for docstring reference.
 
-  ;; code goes here
-  )
+  ;;
+  ;;
+  ;; invite
+  (define (get-invite invite-code #!key (with-counts #f))
+    (rest-request
+     request: 'GET
+     sub-uri: (string-append "/invites/" invite-code
+                             (if with-counts "?with_counts=true" ""))))
+
+  ;; MANAGE_CHANNELS
+  ;;
+  ;; invite
+  (define (delete-invite invite-code)
+    (rest-request
+     request: 'DELETE sub-uri: (string-append "/invites/" invite-code))))

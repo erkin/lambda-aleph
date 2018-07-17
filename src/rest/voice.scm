@@ -7,5 +7,9 @@
 
 ;;; See channel.scm for docstring reference.
 
-  ;; code goes here
-  )
+  ;;
+  ;;
+  ;; (voice)
+  (define (get-voice-regions)
+    (rest-request
+     request: 'GET sub-uri: "/voice/regions")))
