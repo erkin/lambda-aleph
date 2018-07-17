@@ -9,12 +9,11 @@ html
 }
 
 body
-{
-    background-image: url("media/nebula.jpg");
+{    
+    background: #ffe0e9;
+    background-image: url("media/nebula.jpg"); /* fallback */
+    background-image: url("media/nebula.jpg"), linear-gradient(#ffe0e9, #e9e0ff);
     background-repeat: repeat-x;
-    
-    /* background-color: #ffe0ea; */
-    background: linear-gradient(#ffe0e9, #e9e0ff);
 
     height: 100%;
     display: table-cell;
@@ -32,14 +31,14 @@ header
     text-align: center;
     vertical-align: top;
     display: inline-block;
-    width: 250px;
+    width: 200px;
     margin-top: 150px;
 }
 
 section
 {
     display: inline-block;
-    width: 520px;
+    width: 600px;
     margin-top: 180px;
 }
 
