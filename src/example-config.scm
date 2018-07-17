@@ -2,7 +2,7 @@
   (import scheme)
 
   (define-constant project-url "https://erkin.co/lambda-aleph")
-  (define-constant project-version "0.1.0")
+  (define-constant project-version "0.1.3")
   (define-constant project-name "λℵ")
   
   ;; https://discordapp.com/developers/docs/reference
