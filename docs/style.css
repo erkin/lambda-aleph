@@ -13,7 +13,8 @@ body
     background-image: url("media/nebula.jpg");
     background-repeat: repeat-x;
     
-    background-color: #ffe0ea;
+    /* background-color: #ffe0ea; */
+    background: linear-gradient(#ffe0e9, #e9e0ff);
 
     height: 100%;
     display: table-cell;
