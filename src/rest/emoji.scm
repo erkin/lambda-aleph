@@ -7,5 +7,27 @@
 
 ;;; See channel.scm for docstring reference.
 
-  ;; code goes here
-  )
+  (define (list-guild-emojis guild-id)
+    (rest-request
+     request: 'GET sub-uri: (string-append "/guilds/" guild-id "/emojis")))
+
+  (define (get-guild-emoji guild-id emoji-id)
+    (rest-request
+     request: 'GET sub-uri: (string-append "/guilds/" guild-id
+                                           "/emojis/" emoji-id)))
+
+  (define (create-guild-emoji guild-id query)
+    (rest-request
+     request: 'POST sub-uri: (string-append "/guilds/" guild-id)
+     query: query))
+
+  (define (modify-guild-emoji guild-id emoji-id query)
+    (rest-request
+     request: 'PATCH sub-uri: (string-append "/guilds/" guild-id
+                                             "/emojis/" emoji-id)
+     query: query))
+
+  (define (delete-guild-emoji guild-id emoji-id)
+    (rest-request
+     request: 'DELETE sub-uri: (string-append "/guilds/" guild-id
+                                              "/emojis/" emoji-id))))
