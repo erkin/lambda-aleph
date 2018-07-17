@@ -3,7 +3,7 @@
   (import λℵ-rest)
   
 ;;; This file implements the `audit-log` section of the Discord REST API
-;;; https://discordapp.com/developers/docs/resources/channel
+;;; https://discordapp.com/developers/docs/resources/audit-log
 
 ;;; See channel.scm for docstring reference.
 
@@ -12,4 +12,5 @@
   ;; audit-log
   (define (get-audit-log guild-id query)
     (rest-request
-     request: 'GET sub-uri: (string-append "/guilds/" guild-id "/audit-logs"))))
+     request: 'GET sub-uri: (string-append "/guilds/" guild-id "/audit-logs")
+     query: query)))

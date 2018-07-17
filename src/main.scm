@@ -12,7 +12,9 @@
 
 (use args http-client system)
 (import λℵ-project λℵ-secret λℵ-sockets)
-(import λℵ-rest-channel)
+(import λℵ-rest-channel λℵ-rest-audit λℵ-rest-emoji
+        λℵ-rest-guild λℵ-rest-invite λℵ-rest-user
+        λℵ-rest-voice λℵ-rest-webhook)
 
 (define (print-version)
   (print  project-name " v" project-version)
