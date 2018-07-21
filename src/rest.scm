@@ -1,5 +1,6 @@
 (module λℵ-rest (rest-request)
   (import chicken scheme data-structures)
+  (require-extension srfi-69)
   (use http-client intarweb uri-common medea)
   (import λℵ-project λℵ-secret)
 
@@ -36,16 +37,16 @@
   (form-urlencoded-separator "&")
   
   (define (rest-request #!key (request 'GET) (query #f) (payload #f) (sub-uri #f))
-    (define rest-request-header
+    (define rest-request-header ; TODO: implement X-Audit-Log-Reason
       (if query ; Set the content type if we're sending JSON queries or embed data
           (headers (append auth-header '((content-type #(application/json ((charset . utf-8)))))))
-          (headers auth-header))) ;; add multipart/form-data for payload
-    (receive (result uri response)
+          (headers auth-header))) ;; TODO: add multipart/form-data for payload
+    (receive (result uri status)
         (call-with-input-request
          (make-request method: request
                        uri: (uri-relative-to sub-uri api-uri)
                        headers: rest-request-header)
          (if query (json->string query) #f)
          read)
-      (print "Received: " result)
-      (print "Got response " (response-status response) " from " (uri->string uri)))))
+      (print "Received: " (hash-table? result))
+      (print "Got response " (response-status status) " from " (uri->string uri)))))
