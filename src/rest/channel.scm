@@ -61,13 +61,19 @@
                                            "/messages/" message-id)))
 
   ;; READ_MESSAGE_HISTORY
-  ;; [around] [before] [after] [limit]
+  ;;
   ;; (message)
-  (define (get-messages channel-id query)
+  (define (get-messages channel-id #!key (around #f) (before #f) (after #f) (limit #f))
+    (define query
+      (string-append
+       "?"
+       (if around (string-append "around=" around "&")
+           (if before (string-append "before=" before "&")
+               (if after (string-append "after=" after "&") "")))
+       (if limit (string-append "limit=" limit) "")))
     (rest-request
      request: 'GET sub-uri: (string-append "/channels/" channel-id
-                                           "/messages")
-     query: query))
+                                           "/messages/" query)))
 
   ;; SEND_MESSAGES [SEND_TTS_MESSAGES]
   ;; content [nonce] [tts] [file] [embed] [payload_json]
@@ -132,13 +138,20 @@
 
 
   ;;
-  ;; [before] [after] [limit]
+  ;;
   ;; (user)
-  (define (get-reactions channel-id message-id emoji query)
+  (define (get-reactions channel-id message-id emoji query #!key (before #f) (after #f) (limit #f))
+    (define query
+      (string-append
+       "?"
+       (if before (string-append "before=" before "&") "")
+       (if after (string-append "after=" after "&") "")
+       (if limit (string-append "limit=" limit) "")))
     (rest-request
      request: 'GET
      sub-uri: (string-append: "/channels/" channel-id
-                              "/messages/" message-id "/reactions/" emoji)))
+                              "/messages/" message-id
+                              "/reactions/" emoji "/" query)))
 
   ;; READ_MESSAGE_HISTORY [ADD_REACTIONS]
   ;;

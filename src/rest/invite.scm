@@ -11,6 +11,10 @@
   ;;
   ;; invite
   (define (get-invite invite-code #!key (with-counts #f))
+    (define query
+      (string-append
+       "?"
+       (if with-counts "with_counts=true" "")))
     (rest-request
      request: 'GET
      sub-uri: (string-append "/invites/" invite-code

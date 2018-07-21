@@ -8,9 +8,16 @@
 ;;; See channel.scm for docstring reference.
 
   ;; VIEW_AUDIT_LOG
-  ;; [user_id] [action_type] [before] [limit]
+  ;;
   ;; audit-log
-  (define (get-audit-log guild-id query)
+  (define (get-audit-log guild-id #!key (user-id #f) (action-type #f) (before #f) (limit #f))
+    (define query
+      (string-append
+       "?"
+       (if user-id (string-append "user_id=" user-id "&") "")
+       (if action-type (string-append "action_type=" action-type "&") "")
+       (if before (string-append "before=" before "&") "")
+       (if limit (string-append "limit=" limit) "")))
     (rest-request
-     request: 'GET sub-uri: (string-append "/guilds/" guild-id "/audit-logs")
-     query: query)))
+     request: 'GET
+     sub-uri: (string-append "/guilds/" guild-id "/audit-logs" query))))
