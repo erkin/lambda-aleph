@@ -73,7 +73,7 @@
        (if limit (string-append "limit=" limit) "")))
     (rest-request
      request: 'GET sub-uri: (string-append "/channels/" channel-id
-                                           "/messages/" query)))
+                                           "/messages" query)))
 
   ;; SEND_MESSAGES [SEND_TTS_MESSAGES]
   ;; content [nonce] [tts] [file] [embed] [payload_json]
@@ -151,7 +151,7 @@
      request: 'GET
      sub-uri: (string-append: "/channels/" channel-id
                               "/messages/" message-id
-                              "/reactions/" emoji "/" query)))
+                              "/reactions/" emoji query)))
 
   ;; READ_MESSAGE_HISTORY [ADD_REACTIONS]
   ;;
