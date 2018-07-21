@@ -38,16 +38,6 @@
   (newline)
   (print (args:usage opts)))
 
-;;; Bot's user agent
-;;; https://discordapp.com/developers/docs/reference#user-agent
-
-;;; Discord doesn't recognise the version string and wants it to be incorporated
-;;; in the system information section, so we're leaving the version string
-;;; blank (#f) and appending it to our project URL instead.
-
-(define (main args)
-  (client-software
-   `(,'("DiscordBot" #f (string-append project-url ", " project-version))))
-  (if (null? args) (usage) (args:parse args opts)))
-
-(main (command-line-arguments))
+(if (null? (command-line-arguments))
+    (usage)
+    (args:parse (command-line-arguments) opts))

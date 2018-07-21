@@ -2,7 +2,7 @@
   (import chicken scheme data-structures)
   (use http-client intarweb uri-common medea)
   (import λℵ-project λℵ-secret)
-  
+
 ;;; basic-auth-unparser requires `username` and `password` strings in
 ;;; the `Authorization` header. Discord just needs a `Bot` token string.
 ;;; So, we're defining a new auth-unparser here.
@@ -23,18 +23,29 @@
   (header-unparsers
    `((authorization . ,discord-auth-unparser) . ,(header-unparsers)))
 
-  (define (rest-request #!key (request 'GET) (query #f) (payload #f) (sub-uri ""))
+;;; Bot's user agent
+;;; https://discordapp.com/developers/docs/reference#user-agent
+
+;;; Discord doesn't recognise the version string and wants it to be incorporated
+;;; in the system information section, so we're leaving the version string
+;;; blank (#f) and appending it to our project URL instead.
+
+  (client-software
+   `(,'("DiscordBot" #f (string-append project-url ", " project-version))))
+
+  (form-urlencoded-separator "&")
+  
+  (define (rest-request #!key (request 'GET) (query #f) (payload #f) (sub-uri #f))
     (define rest-request-header
       (if query ; Set the content type if we're sending JSON queries or embed data
           (headers (append auth-header '((content-type #(application/json ((charset . utf-8)))))))
           (headers auth-header))) ;; add multipart/form-data for payload
-    (receive (json uri response)
+    (receive (result uri response)
         (call-with-input-request
          (make-request method: request
-                       uri: (uri-reference
-                             (string-append api-uri sub-uri))
+                       uri: (uri-relative-to sub-uri api-uri)
                        headers: rest-request-header)
          (if query (json->string query) #f)
          read)
-      (print "Received: " json)
+      (print "Received: " result)
       (print "Got response " (response-status response) " from " (uri->string uri)))))

@@ -1,6 +1,7 @@
 (module λℵ-rest-channel *
   (import chicken scheme)
   (import λℵ-rest)
+  (use (only uri-common make-uri))
   
 ;;; This file implements the `channel` section of the Discord REST API
 ;;; https://discordapp.com/developers/docs/resources/channel
@@ -26,14 +27,16 @@
   ;; channel
   (define (get-channel channel-id)
     (rest-request
-     request: 'GET sub-uri: (string-append "/channels/" channel-id)))
+     request: 'GET
+     sub-uri: (make-uri path: `("channels" ,channel-id))))
 
   ;; MANAGE_CHANNELS
   ;; name position topic nsfw bitrate user_limit permission_overwrites parent_id
   ;; channel
   (define (put-channel channel-id query)
     (rest-request
-     request: 'PUT sub-uri: (string-append "/channels/" channel-id)
+     request: 'PUT
+     sub-uri: (make-uri path: `("channels" ,channel-id))
      query: query))
 
   ;; MANAGE_CHANNELS
@@ -41,7 +44,8 @@
   ;; channel
   (define (patch-channel channel-id query)
     (rest-request
-     request: 'PATCH sub-uri: (string-append "/channels/" channel-id)
+     request: 'PATCH
+     sub-uri: (make-uri path: `("channels" ,channel-id))
      query: query))
 
   ;; MANAGE_CHANNELS
@@ -49,7 +53,8 @@
   ;; channel
   (define (delete-channel channel-id)
     (rest-request
-     request: 'DELETE sub-uri: (string-append "/channels/" channel-id)))
+     request: 'DELETE
+     sub-uri: (make-uri path: `("channels" ,channel-id))))
 
 
   ;; READ_MESSAGE_HISTORY
@@ -57,31 +62,28 @@
   ;; message
   (define (get-message channel-id message-id)
     (rest-request
-     request: 'GET sub-uri: (string-append "/channels/" channel-id
-                                           "/messages/" message-id)))
+     request: 'GET
+     sub-uri: (make-uri path: `("channels" ,channel-id "messages" ,message-id))))
 
   ;; READ_MESSAGE_HISTORY
   ;;
   ;; (message)
   (define (get-messages channel-id #!key (around #f) (before #f) (after #f) (limit #f))
-    (define query
-      (string-append
-       "?"
-       (if around (string-append "around=" around "&")
-           (if before (string-append "before=" before "&")
-               (if after (string-append "after=" after "&") "")))
-       (if limit (string-append "limit=" limit) "")))
     (rest-request
-     request: 'GET sub-uri: (string-append "/channels/" channel-id
-                                           "/messages" query)))
+     request: 'GET
+     sub-uri: (make-uri path: `("channels" ,channel-id "messages") 
+                        query: `((around . ,around) ; TODO: mutual exclusion
+                                 (before . ,before) ; <-
+                                 (after . ,after)   ; <-
+                                 (limit . ,limit)))))
 
   ;; SEND_MESSAGES [SEND_TTS_MESSAGES]
   ;; content [nonce] [tts] [file] [embed] [payload_json]
   ;; message
   (define (post-message channel-id query)
     (rest-request
-     request: 'POST sub-uri: (string-append "/channels/" channel-id
-                                            "/messages")
+     request: 'POST
+     sub-uri: (make-uri path: `("channels" ,channel-id "messages"))
      query: query))
 
   ;; ?
@@ -89,8 +91,8 @@
   ;; message
   (define (patch-message channel-id message-id query)
     (rest-request
-     request: 'PATCH sub-uri: (string-append "/channels/" channel-id
-                                             "/messages/" message-id)
+     request: 'PATCH
+     sub-uri: (make-uri path: `("channels" ,channel-id "messages" ,message-id))
      query: query))
 
   ;; MANAGE_MESSAGES
@@ -98,8 +100,8 @@
   ;;
   (define (delete-message channel-id message-id)
     (rest-request
-     request: 'DELETE sub-uri: (string-append "/channels/" channel-id
-                                              "/messages/" message-id)))
+     request: 'DELETE
+     sub-uri: (make-uri path: `("channels" ,channel-id "messages" ,message-id))))
 
 
   ;; MANAGE_MESSAGES
@@ -107,8 +109,8 @@
   ;;
   (define (post-bulk-deletion channel-id query)
     (rest-request
-     request: 'POST sub-uri: (string-append "/channels/" channel-id
-                                            "/messages/bulk-delete")
+     request: 'POST
+     sub-uri: (make-uri path: `("channels" ,channel-id "messages" "bulk-delete"))
      query: query))
 
 
@@ -117,41 +119,37 @@
   ;; (message)
   (define (get-pinned-messages channel-id)
     (rest-request
-     request: 'GET sub-uri: (string-append "/channels/" channel-id
-                                           "/pins")))
+     request: 'GET
+     sub-uri: (make-uri path: `("channels" ,channel-id "pins"))))
 
   ;; MANAGE_MESSAGES
   ;; 
   ;; message
   (define (put-pinned-message channel-id message-id)
     (rest-request
-     request: 'PUT sub-uri: (string-append "/channels/" channel-id
-                                           "/pins/" message-id)))
+     request: 'PUT
+     sub-uri: (make-uri path: `("channels" ,channel-id "pins" ,message-id))))
  
   ;; MANAGE_MESSAGES
   ;;
   ;;
   (define (delete-pinned-message channel-id message-id)
     (rest-request
-     request: 'DELETE sub-uri: (string-append "/channels/" channel-id
-                                              "/pins/" message-id)))
+     request: 'DELETE
+     sub-uri: (make-uri path: `("channels" ,channel-id "pins" ,message-id))))
 
 
   ;;
   ;;
   ;; (user)
-  (define (get-reactions channel-id message-id emoji query #!key (before #f) (after #f) (limit #f))
-    (define query
-      (string-append
-       "?"
-       (if before (string-append "before=" before "&") "")
-       (if after (string-append "after=" after "&") "")
-       (if limit (string-append "limit=" limit) "")))
+  (define (get-reactions channel-id message-id emoji #!key (before #f) (after #f) (limit #f))
     (rest-request
      request: 'GET
-     sub-uri: (string-append: "/channels/" channel-id
-                              "/messages/" message-id
-                              "/reactions/" emoji query)))
+     sub-uri: (make-uri path: `("channels" ,channel-id "messages" ,message-id
+                                "reactions" ,emoji)
+                        query: `((before . ,before)
+                                 (after . ,after)
+                                 (limit . ,limit)))))
 
   ;; READ_MESSAGE_HISTORY [ADD_REACTIONS]
   ;;
@@ -159,8 +157,8 @@
   (define (put-reaction channel-id message-id emoji)
     (rest-request
      request: 'PUT
-     sub-uri: (string-append "/channels/" channel-id
-                             "/messages/" message-id "/reactions/" emoji "/@me")))
+     sub-uri: (make-uri path: `("channels" ,channel-id "messages" ,message-id
+                                "reactions" ,emoji "@me"))))
 
   ;; [MANAGE_MESSAGES]
   ;;
@@ -170,8 +168,8 @@
     ;; user-id = "@me" -> own
     (rest-request
      request: 'DELETE
-     sub-uri: (string-append "/channels/" channel-id
-                             "/messages/" message-id "/reactions/" emoji "/" user-id)))
+     sub-uri: (make-uri path: `("channels" ,channel-id "messages" ,message-id
+                                "reactions" ,emoji ,user-id))))
 
 
   ;; MANAGE_ROLES
@@ -179,8 +177,8 @@
   ;;
   (define (put-channel-permission channel-id overwrite-id query)
     (rest-request
-     request: 'PUT sub-uri: (string-append "/channels/" channel-id
-                                           "/permissions/" overwrite-id)
+     request: 'PUT
+     sub-uri: (make-uri path: `("channels" ,channel-id "permissions" ,overwrite-id))
      query: query))
 
   ;; MANAGE_ROLES
@@ -188,8 +186,8 @@
   ;;
   (define (delete-channel-permission channel-id overwrite-id)
     (rest-request
-     request: 'DELETE sub-uri: (string-append "/channels/" channel-id
-                                              "/permissions/" overwrite-id)))
+     request: 'DELETE
+     sub-uri: (make-uri path: `("channels" ,channel-id "permissions" ,overwrite-id))))
 
 
   ;; MANAGE_CHANNELS
@@ -197,16 +195,16 @@
   ;; (invite)
   (define (get-channel-invites channel-id)
     (rest-request
-     request: 'GET sub-uri: (string-append "/channels/" channel-id
-                                           "/invites")))
+     request: 'GET
+     sub-uri: (make-uri path: `("channels" ,channel-id "invites"))))
 
   ;; CREATE_INSTANT_INVITES
   ;; [max_age] [max_uses] [temporary] [unique]
   ;; invite
   (define (post-channel-invite channel-id query)
     (rest-request
-     request: 'POST sub-uri: (string-append "/channels/" channel-id
-                                            "/invites")
+     request: 'POST
+     sub-uri: (make-uri path: `("channels" ,channel-id "invites"))
      query: query))
 
 
@@ -215,8 +213,8 @@
   ;;
   (define (post-typing channel-id)
     (rest-request
-     request: 'POST sub-uri: (string-append "/channels/" channel-id
-                                            "/typing")))
+     request: 'POST
+     sub-uri: (make-uri path: `("channels" ,channel-id "typing"))))
 
 
   ;;
@@ -224,8 +222,8 @@
   ;; ?
   (define (put-group-user channel-id user-id query)
     (rest-request
-     request: 'PUT sub-uri: (string-append "/channels/" channel-id
-                                           "/recipients/" user-id)
+     request: 'PUT
+     sub-uri: (make-uri path: `("channels" ,channel-id "recipients" ,user-id))
      query: query))
 
   ;;
@@ -233,5 +231,5 @@
   ;; ?
   (define (delete-group-user channel-id user-id)
     (rest-request
-     request: 'DELETE sub-uri: (string-append "/channels/" channel-id
-                                              "/recipients/" user-id))))
+     request: 'DELETE
+     sub-uri: (make-uri path: `("channels" ,channel-id "recipients" ,user-id)))))
