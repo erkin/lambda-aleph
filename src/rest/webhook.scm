@@ -31,7 +31,7 @@
   (define (get-guild-webhooks guild-id)
     (rest-request
      request: 'GET
-     sub-uri: (make-uri path: `("webhooks" ,guild-id "webhooks"))))
+     sub-uri: (make-uri path: `("guilds" ,guild-id "webhooks"))))
 
   ;; MANAGE_WEBHOOKS
   ;;
