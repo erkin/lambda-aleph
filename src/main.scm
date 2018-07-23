@@ -1,4 +1,5 @@
 (include "config")
+(include "secret")
 (include "websockets")
 (include "rest")
 (include "rest/audit-log")
