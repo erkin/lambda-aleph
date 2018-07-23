@@ -4,6 +4,8 @@
   (use http-client intarweb uri-common medea)
   (import λℵ-project λℵ-secret)
 
+  (define-constant api-uri (absolute-uri "https://canary.discordapp.com/api/"))
+  
 ;;; basic-auth-unparser requires `username` and `password` strings in
 ;;; the `Authorization` header. Discord just needs a `Bot` token string.
 ;;; So, we're defining a new auth-unparser here.
@@ -48,5 +50,5 @@
                        headers: rest-request-header)
          (if query (json->string query) #f)
          read)
-      (print "Received: " (hash-table? result))
+      (print "Received: " result)
       (print "Got response " (response-status status) " from " (uri->string uri)))))
