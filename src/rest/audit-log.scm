@@ -1,5 +1,5 @@
 (module λℵ-rest-audit *
-  (import chicken scheme)
+  (import chicken scheme data-structures)
   (import λℵ-rest)
   (use (only uri-common make-uri))
   
@@ -8,46 +8,47 @@
 
 ;;; See channel.scm for docstring reference.
 
-  ;; Guild events
-  (define-constant event-guild-update 1)
+  (define-constant audit-log-events
+    '( ;; Guild events
+      (event-guild-update . 1)
 
-  ;; Channel events
-  (define-constant event-channel-create 10)
-  (define-constant event-channel-update 11)
-  (define-constant event-channel-delete 12)
+      ;; Channel events
+      (event-channel-create . 10)
+      (event-channel-update . 11)
+      (event-channel-delete . 12)
 
-  ;; Channel events
-  (define-constant event-permission-create 13)
-  (define-constant event-permisison-update 14)
-  (define-constant event-permission-delete 15)
+      ;; Channel events
+      (event-permission-create . 13)
+      (event-permisison-update . 14)
+      (event-permission-delete . 15)
 
-  ;; Member events
-  (define-constant event-member-kick   20)
-  (define-constant event-member-prune  21)
-  (define-constant event-member-ban    22)
-  (define-constant event-member-unban  23)
-  (define-constant event-member-update 24)
-  (define-constant event-member-role   25)
+      ;; Member events
+      (event-member-kick   . 20)
+      (event-member-prune  . 21)
+      (event-member-ban    . 22)
+      (event-member-unban  . 23)
+      (event-member-update . 24)
+      (event-member-role   . 25)
 
-  ;; Role events
-  (define-constant event-role-create 30)
-  (define-constant event-role-update 31)
-  (define-constant event-role-delete 32)
+      ;; Role events
+      (event-role-create . 30)
+      (event-role-update . 31)
+      (event-role-delete . 32)
 
-  ;; Invite events
-  (define-constant event-invite-create 40)
-  (define-constant event-invite-update 41)
-  (define-constant event-invite-delete 42)
+      ;; Invite events
+      (event-invite-create . 40)
+      (event-invite-update . 41)
+      (event-invite-delete . 42)
 
-  ;; Webhook events
-  (define-constant event-webhook-create 50)
-  (define-constant event-webhook-update 51)
-  (define-constant event-webhook-delete 52)
+      ;; Webhook events
+      (event-webhook-create . 50)
+      (event-webhook-update . 51)
+      (event-webhook-delete . 52)
 
-  ;; Emoji events
-  (define-constant event-emoji-create 60)
-  (define-constant event-emoji-update 61)
-  (define-constant event-emoji-delete 62)
+      ;; Emoji events
+      (event-emoji-create . 60)
+      (event-emoji-update . 61)
+      (event-emoji-delete . 62)))
 
 
   ;; VIEW_AUDIT_LOG
@@ -58,6 +59,6 @@
      request: 'GET
      sub-uri: (make-uri path: `("guilds" ,guild-id "audit-logs")
                         query: `((user_id . ,user-id)
-                                 (action_type . ,action-type)
+                                 (action_type . ,(alist-ref action-type audit-log-events))
                                  (before . ,before)
                                  (limit . ,limit))))))
