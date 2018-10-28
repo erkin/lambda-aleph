@@ -15,7 +15,7 @@
      "/_/ \\_|_| \\_\\\n"))
 
 ;;; TODO: 24-bit colours for maximum uselessness
-  (define-constant ansi-colours
+  (define ansi-colours
     '((black   . "0")
       (red     . "1")
       (green   . "2")
@@ -26,7 +26,7 @@
       (white   . "7")
       (default . "9")))
 
-  (define-constant ansi-styles
+  (define ansi-styles
     '((regular    .  "0")
       (bold       .  "1")
       (faint      .  "2")

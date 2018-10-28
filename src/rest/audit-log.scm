@@ -8,7 +8,7 @@
 
 ;;; See channel.scm for docstring reference.
 
-  (define-constant audit-log-events
+  (define audit-log-events
     '( ;; Guild events
       (event-guild-update . 1)
 

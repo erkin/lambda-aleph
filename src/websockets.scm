@@ -7,4 +7,5 @@
   (import chicken scheme)
   (use websockets)
   (use (only uri-common absolute-uri))
-  (define-constant socket-uri (absolute-uri "wss://gateway.discord.gg/")))
+
+  (define socket-uri (absolute-uri "wss://gateway.discord.gg/")))

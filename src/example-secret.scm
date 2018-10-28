@@ -6,4 +6,4 @@
 (module λℵ-secret *
   (import chicken scheme)
 
-  (define-constant secret-app-token "my app token"))
+  (define secret-app-token "my app token"))

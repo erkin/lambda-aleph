@@ -1,4 +1,3 @@
-#!/usr/bin/csi -s
 (include "config")
 (include "secret")
 (include "text")
@@ -13,13 +12,13 @@
 (include "rest/voice")
 (include "rest/webhook")
 
-(use args http-client readline utf8)
+(use args http-client linenoise utf8)
 (import λℵ-project λℵ-secret λℵ-sockets λℵ-text)
 (import λℵ-rest-channel λℵ-rest-audit λℵ-rest-emoji
         λℵ-rest-guild λℵ-rest-invite λℵ-rest-user
         λℵ-rest-voice λℵ-rest-webhook)
 
-(define-constant repl-commands
+(define repl-commands
   '((help . (begin (print "List of available commands: ")
                    (map (lambda (lst) (car lst)) repl-commands)))
     (exit . (exit))))
@@ -50,23 +49,19 @@
   (exit))
 
 (define (repl-start)
-  (define (repl-read)
-    (let ((line (read-line)))
-      (cond ((eof-object? line)
-             (exit))
-            ((assoc (string->symbol line) repl-commands)
-             (print (eval (alist-ref (string->symbol line) repl-commands))))
-            (else
-             (print (tint " Invalid command: " 'red) line))))
-    (repl-read))
   (print-banner)
-  (current-input-port
-   (make-readline-port (tint "ɩ " 'green)
-                       (tint " υ " 'yellow)))
   (print "Type "
          (tint "help" 'green)
          " to see a list of commands.")
-  (repl-read))
+  (let loop ((line (linenoise (tint "ɩ " 'green))))
+    (cond ((not line)
+           (exit))
+          ((assoc (string->symbol line) repl-commands)
+           (print (eval (alist-ref (string->symbol line) repl-commands))))
+          ((string-null? line))
+          (else
+           (print (tint " Invalid command: " 'red) line)))
+     (loop (linenoise (tint "ɩ " 'green)))))
 
 ;;; Entry point
 (if (null? (command-line-arguments))

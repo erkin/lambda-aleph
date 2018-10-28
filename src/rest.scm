@@ -9,7 +9,7 @@
   (use http-client intarweb uri-common medea)
   (import λℵ-project λℵ-secret)
 
-  (define-constant api-uri (absolute-uri "https://canary.discordapp.com/api/"))
+  (define api-uri (absolute-uri "https://canary.discordapp.com/api/"))
   
 ;;; basic-auth-unparser requires `username` and `password` strings in
 ;;; the `Authorization` header. Discord just needs a `Bot` token string.
