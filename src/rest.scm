@@ -1,3 +1,8 @@
+;;;; λℵ-rest - rest.scm
+;;;;
+;;;; Interface for REST requests
+;;;; See rest/ for individual requests
+
 (module λℵ-rest (rest-request)
   (import chicken scheme data-structures)
   (require-extension srfi-69)
@@ -39,7 +44,7 @@
   (form-urlencoded-separator "&")
   
   (define (rest-request #!key (request 'GET) (query #f) (payload #f) (sub-uri #f))
-    (define rest-request-header ; TODO: implement X-Audit-Log-Reason
+    (define rest-request-header   ; TODO: implement X-Audit-Log-Reason
       (if query ; Set the content type if we're sending JSON queries or embed data
           (headers (append auth-header '((content-type #(application/json ((charset . utf-8)))))))
           (headers auth-header))) ;; TODO: add multipart/form-data for payload

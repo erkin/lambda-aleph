@@ -1,3 +1,8 @@
+;;;; λℵ-sockets - websockets.scm
+;;;;
+;;;; TODO: Implementation of websockets
+;;;; The default way of connecting to Discord
+
 (module λℵ-sockets ()
   (import chicken scheme)
   (use websockets)
