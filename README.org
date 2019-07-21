@@ -1,5 +1,7 @@
 * λℵ v0.1.4
   
+*** This project has been mothballed as of 19-07-21.
+  
   λℵ\star is a half-arsed attempt at writing a simple Discord bot from the
   ground up, using CHICKEN Scheme 4.
 
